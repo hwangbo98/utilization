@@ -9,5 +9,5 @@ count = 0
 for line in image_files :
     fw.write(line+'\n')
     count+=1
-print(count)
+# print(count)
 fw.close()
