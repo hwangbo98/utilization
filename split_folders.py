@@ -1,9 +1,10 @@
 import os 
 from glob import glob
 import shutil
+from tqdm import tqdm
+# from sklearn.model_selection import train_test_split
 from sklearn.model_selection import train_test_split
-
-image_files = glob("lime_mid/*.jpg")
+image_files = glob("/mnt/hdd3/showniq/Data/lime_mix/images/*.jpg")
 
 images = [name.replace(".jpg", "") for name in image_files]
 
@@ -17,20 +18,26 @@ random_state=42, shuffle=True)
 
 
 def batch_move_files(file_list, source_path, destination_path) :
-    for file in file_list :
+    for file in tqdm(file_list) :
         image = file.split('/')[-1] + '.jpg'
         txt = file.split('/')[-1] + '.txt'
+        source_path_txt = source_path.replace("images", "labels")
+        destination_path_txt = destination_path.replace("images", "labels")
         shutil.copy(os.path.join(source_path, image), destination_path)
-        shutil.copy(os.path.join(source_path, txt), destination_path)
+        shutil.copy(os.path.join(source_path_txt, txt), destination_path_txt)
 
     return
         
 
-source_dir = "lime_mid"
+source_dir = "/mnt/hdd3/showniq/Data/lime_mix/images/"
 
-test_dir =  "lime_mid_cp/test"
-val_dir =  "lime_mid_cp/val"
-train_dir =  "lime_mid_cp/train"
+test_dir =  "/mnt/hdd3/showniq/Data/lime_mix/images/test/"
+val_dir =  "/mnt/hdd3/showniq/Data/lime_mix/images/val/"
+train_dir =  "/mnt/hdd3/showniq/Data/lime_mix/images/train/"
+
+os.makedirs(test_dir, exist_ok=True)
+os.makedirs(val_dir, exist_ok=True)
+os.makedirs(train_dir, exist_ok=True)
 
 batch_move_files(train_names, source_dir, train_dir)
 batch_move_files(test_names, source_dir, test_dir)

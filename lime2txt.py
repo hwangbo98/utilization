@@ -4,6 +4,7 @@ from os import walk, getcwd
 import json
 import glob
 from PIL import Image
+from tqdm import tqdm
 
 def convert(size, box):
     dw = 1./size[0]
@@ -21,12 +22,12 @@ def convert(size, box):
 
 mypath = "/Users/kite/Desktop/new_folder/HGU/2022-2/SHOWNIQ/labeling/labels/etc/etc001/5am.saigon_All_Basic-Street_CSvhVWBF_uB-20220417033626-51.json"
 
-output  = glob.glob("labeling/labels/**/*.json", recursive=True)
+output  = glob.glob("/mnt/hdd3/showniq/Data/lime_mix//**/*.json", recursive=True)
 
 file_list_py = [file for file in output if file.endswith(".json")]
 # print(file_list_py)
 # outpath = "./result/"
-json_backup ="/home/hwangbo/txt_lime_mid/"
+json_backup ="/mnt/hdd3/showniq/Data/lime_mix/labels/"
 
 wd = getcwd()
 #list_file = open('%s_list.txt'%(wd), 'w')
@@ -39,16 +40,17 @@ wd = getcwd()
     
 
 """ Process """
-for i in file_list_py :
+for i in tqdm(file_list_py) :
     img_path  = i.replace("labels","images",1)
     img_path = img_path.rstrip(".json") + ".jpg"
     txt_name = i.rstrip(".json") + ".txt"
+    
     # print(img_path)
     # print(txt_name)
     with open(i) as f :
         json_object = json.load(f)
-
-    new_txt_name = json_backup+txt_name
+    file_name = txt_name.split("/")
+    new_txt_name = json_backup+file_name[-1] 
     split_txt = new_txt_name.split("/")
     new_txt = ""
     for i in range(len(split_txt)) :
