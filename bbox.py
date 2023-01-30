@@ -52,7 +52,7 @@ for i, json_path in tqdm(enumerate(json_list)) :
         # print(f'lt_x = {lt_x}, lt_y = {lt_y}, rb_x = {rb_x}, rb_y = {rb_y}')
         img = cv2.rectangle(img,(lt_x,lt_y), (rb_x,rb_y), bc, 3)
         # img = cv2.putText(img, str(k), (lt_x,lt_y-10), cv2.FONT_HERSHEY_COMPLEX,0.6, gc, 1 )
-        img = cv2.line(img, (rh_waist_x, rh_waist_y), (lf_waist_x, lf_waist_y), bc, 5)
+        img = cv2.line(img, (lf_waist_x, lf_waist_y), (rh_waist_x, rh_waist_y), bc, 5)
 
     # print(print(f'length of item_info = {len(data["item_info"])}, item_info bbox = {data["item_info"][0]["bounding_box"]}' )
     # )
