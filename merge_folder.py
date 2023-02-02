@@ -24,8 +24,8 @@ def copy_all_file(file_list, new_path):
         
 start_time = time.time() # 작업 시작 시간 
 
-src_path = "/mnt/hdd3/showniq/Data/lime_mix/images" # 기존 폴더 경로
-new_path = "/mnt/hdd3/showniq/Data/lime_mix_all" # 옮길 폴더 경로
+src_path = "/mnt/hdd3/showniq/Data/lime_2nd/labeling/labels" # 기존 폴더 경로
+new_path = "/mnt/hdd3/showniq/Data/lime_mix_all/labels/" # 옮길 폴더 경로
 
 file_list = read_all_file(src_path)
 copy_all_file(file_list, new_path)
