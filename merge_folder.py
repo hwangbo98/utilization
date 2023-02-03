@@ -24,11 +24,12 @@ def copy_all_file(file_list, new_path):
         
 start_time = time.time() # 작업 시작 시간 
 
-src_path = "/mnt/hdd3/showniq/Data/lime_2nd/labeling/labels" # 기존 폴더 경로
-new_path = "/mnt/hdd3/showniq/Data/lime_mix_all/labels/" # 옮길 폴더 경로
+src_path = "/home/hwangbo/labeling/labels/human/women" # 기존 폴더 경로
+new_path = "/home/hwangbo/men_women/labels/women" # 옮길 폴더 경로
 
 file_list = read_all_file(src_path)
 copy_all_file(file_list, new_path)
 
 print("=" * 40)
 print("러닝 타임 : {}".format(time.time() - start_time)) # 총 소요시간 계산
+
