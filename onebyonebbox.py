@@ -57,24 +57,6 @@ for k, human_box in enumerate(data["human_info"]) :
     rh_shoulder_x = human_box["shoulder_points"]['rb_x']
     rh_shoulder_y = human_box["shoulder_points"]['rb_y']
     # print(f'lt_x = {lt_x}, lt_y = {lt_y}, rb_x = {rb_x}, rb_y = {rb_y}')
-    lf_diff_x = abs(lf_shoulder_x - lf_waist_x) #absolute value of left shoulder to left waist x
-    lf_diff_y = abs(lf_shoulder_y - lf_waist_y) #absolute value of left shoulder to left waist y
-    rh_diff_x = abs(rh_shoulder_x - rh_waist_x) #absolute value of right shoulder to right waist x
-    rh_diff_y = abs(rh_shoulder_y - rh_waist_y) #absolute value of right shoulder to right waist x
-
-    if lf_diff_x > lf_diff_y and rh_diff_x > rh_diff_y : #누워있을 경우, 
-        max_X = max(lf_diff_x, rh_diff_x)                                         #
-        if lf_waist_x > lf_shoulder_x : #이건 하나만 비교해도 될 것 같다. 왼쪽으로 누워있을때 머리-몸통-다리
-            lf_waist_x -= int((max_X * 0.21))
-            rh_waist_x -= int((max_X * 0.21))
-        else :
-            lf_waist_x += int((max_X * 0.21))
-            rh_waist_x += int((max_X * 0.21))
-    else :
-        max_Y = max(lf_diff_y, rh_diff_y)
-        lf_waist_y -= int((max_Y * 0.21))
-        rh_waist_y -= int((max_Y * 0.21))
-
     img = cv2.rectangle(img,(lt_x,lt_y), (rb_x,rb_y), bc, 3)
     # img = cv2.putText(img, str(k), (lt_x,lt_y-10), cv2.FONT_HERSHEY_COMPLEX,0.6, gc, 1 )
     img = cv2.line(img, (lf_shoulder_x, lf_shoulder_y), (rh_shoulder_x, rh_shoulder_y), bc, 5)
@@ -85,12 +67,12 @@ for k, human_box in enumerate(data["human_info"]) :
 
 # print(print(f'length of item_info = {len(data["item_info"])}, item_info bbox = {data["item_info"][0]["bounding_box"]}' )
 # )
-# for j, item_box in enumerate(data["item_info"]) :
-#     lt_x = item_box["bounding_box"]["lt_x"]
-#     lt_y = item_box["bounding_box"]["lt_y"]
-#     rb_x = item_box["bounding_box"]["rb_x"]
-#     rb_y = item_box["bounding_box"]["rb_y"]
-#     # print(f'lt_x = {lt_x}, lt_y = {lt_y}, rb_x = {rb_x}, rb_y = {rb_y}')
-#     img = cv2.rectangle(img,(lt_x, lt_y), (rb_x, rb_y), gc, 3)
+for j, item_box in enumerate(data["item_info"]) :
+    lt_x = item_box["bounding_box"]["lt_x"]
+    lt_y = item_box["bounding_box"]["lt_y"]
+    rb_x = item_box["bounding_box"]["rb_x"]
+    rb_y = item_box["bounding_box"]["rb_y"]
+    # print(f'lt_x = {lt_x}, lt_y = {lt_y}, rb_x = {rb_x}, rb_y = {rb_y}')
+    img = cv2.rectangle(img,(lt_x, lt_y), (rb_x, rb_y), gc, 3)
 
 cv2.imwrite(args.dest_path + img_path.split('/')[-1].split('.')[0] + '.jpg', img)
