@@ -22,12 +22,12 @@ def convert(size, box):
 
 mypath = "/Users/kite/Desktop/new_folder/HGU/2022-2/SHOWNIQ/labeling/labels/etc/etc001/5am.saigon_All_Basic-Street_CSvhVWBF_uB-20220417033626-51.json"
 
-output  = glob.glob("/mnt/hdd3/showniq/Data/lime_mix//**/*.json", recursive=True)
-
+output  = glob.glob("/mnt/hdd3/showniq/Data/lime_mix_all/labels/*.json", recursive=True)
+error_img = []
 file_list_py = [file for file in output if file.endswith(".json")]
-# print(file_list_py)
+print(len(file_list_py))
 # outpath = "./result/"
-json_backup ="/mnt/hdd3/showniq/Data/lime_mix/labels/"
+json_backup ="/mnt/hdd3/showniq/Data/lime_mix_all/labels_txt/"
 
 wd = getcwd()
 #list_file = open('%s_list.txt'%(wd), 'w')
@@ -88,15 +88,20 @@ for i in tqdm(file_list_py) :
         xmax = max(x1,x2)
         ymin = min(y1,y2)
         ymax = max(y1,y2)
+        try :
+            im = Image.open(img_path)
+            w = int(im.size[0])
+            h = int(im.size[1])
 
-        im = Image.open(img_path)
-        w = int(im.size[0])
-        h = int(im.size[1])
+            # print(w, h)
+            # print(xmin, xmax, ymin, ymax)
+            b = (xmin, xmax, ymin, ymax)
+            bb = convert((w,h), b)
+            #print(bb)
+            
+            txt_outfile.write(str(cls_num) + " " + " ".join([str(a) for a in bb]) + '\n')
+        except :
+            # print(f'error image : {img_path}')
+            error_img.append(img_path)
 
-        # print(w, h)
-        # print(xmin, xmax, ymin, ymax)
-        b = (xmin, xmax, ymin, ymax)
-        bb = convert((w,h), b)
-        #print(bb)
-        
-        txt_outfile.write(str(cls_num) + " " + " ".join([str(a) for a in bb]) + '\n')
+print(f'error img = {error_img}')

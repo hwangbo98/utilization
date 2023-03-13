@@ -1,5 +1,7 @@
 import glob
 from tqdm import tqdm
+import shutil
+import random
 
 path_1 = glob.glob('/mnt/hdd3/showniq/Data/lime_1st/labeling/images/human/**/*.jpg', recursive=True)
 path_2 = glob.glob('/mnt/hdd3/showniq/Data/lime_2nd/labeling/images/human/**/*.jpg', recursive=True)
@@ -18,6 +20,8 @@ while True :
 
 print(len(f_list))
 
+random.shuffle(assemble_path)
+
 # item = open('/home/hwangbo/showinq/Data/lime_mix/test_item.txt', 'r') 
 # item_list = []
 # while True :
@@ -35,6 +39,7 @@ print(len(f_list))
 # #     break
 count_item = 0
 count_human = 0
+dest_path = "/home/hwangbo/showinq/Data/item_data/train/"
 for data in tqdm(assemble_path) :
     origin_path = "/mnt/hdd3/showniq/Data/lime_mix/images/train/"
     file_name = data.split("/")[-1]
@@ -42,8 +47,13 @@ for data in tqdm(assemble_path) :
 
     if (new_path in f_list) :
         # with open("/home/hwangbo/showinq/Data/lime_mix/test_item.txt", "a") as file :
-        #     file.write(new_path + "\n")
+        # file.write(new_path + "\n")
         count_human+=1
+        
+    else :
+        count_item+=1
+        print(f'file_path : {new_path}')
+        shutil.copyfile(new_path, dest_path)
     # else :
     #     count_human+=1
 

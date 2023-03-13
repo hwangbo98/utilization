@@ -31,9 +31,9 @@ def batch_move_files(file_list, source_path, destination_path) :
 
 source_dir = "/mnt/hdd3/showniq/Data/lime_mix_all/images/"
 
-test_dir =  "/mnt/hdd3/showniq/Data/lime_mix_all/images/test/"
-val_dir =  "/mnt/hdd3/showniq/Data/lime_mix_all/images/val/"
-train_dir =  "/mnt/hdd3/showniq/Data/lime_mix_all/images/train/"
+test_dir =  "/mnt/hdd3/showniq/Data/lime_1_2_3/images/test/"
+val_dir =  "/mnt/hdd3/showniq/Data/lime_1_2_3/images/val/"
+train_dir =  "/mnt/hdd3/showniq/Data/lime_1_2_3/images/train/"
 
 os.makedirs(test_dir, exist_ok=True)
 os.makedirs(val_dir, exist_ok=True)
