@@ -18,11 +18,20 @@ def convert(size, box):
     y = y*dh
     h = h*dh
     return (x,y,w,h)
-    
+
+def get_all_files_in_folder_v2(folder_path):
+    file_list = []
+    for root, dirs, files in os.walk(folder_path):
+        for filename in files:
+            file_list.append(os.path.join(root, filename))
+            # file_list.append(filename)
+    return file_list
 
 mypath = "/Users/kite/Desktop/new_folder/HGU/2022-2/SHOWNIQ/labeling/labels/etc/etc001/5am.saigon_All_Basic-Street_CSvhVWBF_uB-20220417033626-51.json"
 
-output  = glob.glob("/mnt/hdd3/showniq/Data/lime_mix_all/labels/*.json", recursive=True)
+# output  = glob.glob("/mnt/hdd3/showniq/Data/lime_mix_all/labels/*.json", recursive=True)
+
+output = get_all_files_in_folder_v2('/home/hwangbo/showniq_5th_data_revised/labeling/labels')
 error_img = []
 file_list_py = [file for file in output if file.endswith(".json")]
 print(len(file_list_py))
@@ -50,7 +59,8 @@ for i in tqdm(file_list_py) :
     with open(i) as f :
         json_object = json.load(f)
     file_name = txt_name.split("/")
-    new_txt_name = json_backup+file_name[-1] 
+    new_txt_name = txt_name.replace('labels','labels_txt')
+    #+file_name[-1] 
     split_txt = new_txt_name.split("/")
     new_txt = ""
     for i in range(len(split_txt)) :
@@ -59,7 +69,7 @@ for i in tqdm(file_list_py) :
         else :
             new_txt = new_txt + split_txt[i] +"/"
 
-    #print(new_txt)
+    # print(new_txt)
     if not os.path.exists(new_txt) :
         os.makedirs(new_txt)
     txt_outfile = open(new_txt_name, "w")

@@ -1,7 +1,7 @@
 from glob import glob
 
-input_path = "/mnt/hdd3/showniq/Data/lime_1_2_3/images/val/"
-file_path = "/mnt/hdd3/showniq/Data/lime_1_2_3/val.txt"
+input_path = "/home/hwangbo/lime_mix_all_1234/images/test/"
+file_path = "/home/hwangbo/lime_mix_all_1234/test.txt"
 image_files = glob(input_path+"/*.jpg")
 
 fw = open(file_path, "w")
